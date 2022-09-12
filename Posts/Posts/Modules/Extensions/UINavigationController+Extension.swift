@@ -14,20 +14,14 @@ extension UINavigationController {
                             animated: Bool,
                             completion: EmptyBlock?) {
         pushViewController(viewController, animated: animated)
-        guard animated, let coordinator = transitionCoordinator else {
-            DispatchQueue.main.async { completion?() }
-            return
-        }
+        guard animated, let coordinator = transitionCoordinator else { return }
         coordinator.animate(alongsideTransition: nil) { _ in completion?() }
     }
     
     func popViewController(animated: Bool,
                            completion: EmptyBlock?) {
         popViewController(animated: animated)
-        guard animated, let coordinator = transitionCoordinator else {
-            DispatchQueue.main.async { completion?() }
-            return
-        }
+        guard animated, let coordinator = transitionCoordinator else { return }
         coordinator.animate(alongsideTransition: nil) { _ in completion?() }
     }
     
@@ -35,10 +29,7 @@ extension UINavigationController {
                              animated: Bool,
                              completion: EmptyBlock?) {
         popToViewController(viewController, animated: animated)
-        guard animated, let coordinator = transitionCoordinator else {
-            DispatchQueue.main.async { completion?() }
-            return
-        }
+        guard animated, let coordinator = transitionCoordinator else { return }
         coordinator.animate(alongsideTransition: nil) { _ in completion?() }
     }
 }

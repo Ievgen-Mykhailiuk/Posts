@@ -12,7 +12,6 @@ struct PostList: Codable {
 }
 
 struct PostListModel: Codable {
-    
     let id: Int
     let timeShamp: Double
     let title: String

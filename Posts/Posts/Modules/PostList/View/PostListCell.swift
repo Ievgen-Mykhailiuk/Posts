@@ -13,7 +13,7 @@ protocol CellStateDelegate: AnyObject {
 }
 
 final class PostListCell: BaseTableViewCell {
- 
+    
     //MARK: - Outlets
     @IBOutlet private weak var postTitleLabel: UILabel!
     @IBOutlet private weak var postTextLabel: UILabel!
@@ -27,7 +27,6 @@ final class PostListCell: BaseTableViewCell {
     private var postId: Int = .zero
     private let collapsedLinesCount: Int = 2
     private let expandedLinesCount: Int = 0
-    private let maxSymbolsInTwoLines: Int = 100
     private let collapsedButtonTitle: String = "Read more"
     private let expandedButtonTitle: String = "Read less"
     
@@ -53,7 +52,7 @@ final class PostListCell: BaseTableViewCell {
         postTitleLabel.text = post.title
         postTextLabel.text = post.previewText
         likesCountLabel.text = String(post.likesCount)
-        dateLabel.text = Date.configureDate(with: post.timeShamp)
+        dateLabel.text = Date.timeAgo(from: post.timeShamp)
         setupButton(isExpanded: isExpanded)
     }
     
@@ -76,8 +75,16 @@ final class PostListCell: BaseTableViewCell {
     }
     
     private func setupButton(isExpanded: Bool) {
+        checkTextLabelHeight()
         isExpanded ? makeExpanded() : makeCollapsed()
-        if let symbols = postTextLabel.text?.count, symbols < maxSymbolsInTwoLines {
+    }
+    
+    private func checkTextLabelHeight() {
+        let width = postTextLabel.frame.width
+        guard let text = postTextLabel.text else { return }
+        let height = text.rectHeight(with: width)
+        let visibleHeihgt = text.visibleRectHeight(numberOfLines: collapsedLinesCount)
+        if height <= visibleHeihgt {
             readMoreButton.isHidden = true
         }
     }
