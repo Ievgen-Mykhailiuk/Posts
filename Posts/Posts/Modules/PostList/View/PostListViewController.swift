@@ -15,8 +15,8 @@ protocol PostListView: AnyObject {
 final class PostListViewController: UIViewController {
     
     //MARK: - Outlets
-    @IBOutlet weak var sortButton: UIBarButtonItem!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var sortButton: UIBarButtonItem!
+    @IBOutlet private weak var tableView: UITableView!
     
     //MARK: - Properties
     var presenter: PostListPresenter!

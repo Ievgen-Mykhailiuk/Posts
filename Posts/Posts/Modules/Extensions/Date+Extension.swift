@@ -9,11 +9,10 @@ import Foundation
 
 extension Date {
     static func timeAgo(from date: Double) -> String {
-        var result: String
         let endDate = Date()
         let startDate = Date(timeIntervalSince1970: date)
         let dateFormatter = RelativeDateTimeFormatter()
-        result = dateFormatter.localizedString(for: startDate, relativeTo: endDate)
+        let result = dateFormatter.localizedString(for: startDate, relativeTo: endDate)
         return result
     }
 }

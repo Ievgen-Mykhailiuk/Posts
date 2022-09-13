@@ -26,7 +26,7 @@ final class PostListCell: BaseTableViewCell {
     weak var delegate: CellStateDelegate?
     private var postId: Int = .zero
     private let collapsedLinesCount: Int = 2
-    private let expandedLinesCount: Int = 0
+    private let expandedLinesCount: Int = .zero
     private let collapsedButtonTitle: String = "Read more"
     private let expandedButtonTitle: String = "Read less"
     

@@ -94,11 +94,8 @@ extension PostListViewPresenter: PostListPresenter {
     
     func setState(for post: Int) {
         if expandedPosts.contains(post) {
-            var postIndex: Int
-            if let index = expandedPosts.firstIndex(where: { $0 == post }) {
-                postIndex = Int(index)
-                expandedPosts.remove(at: postIndex)
-            }
+            guard let index = expandedPosts.firstIndex(where: { $0 == post }) else { return }
+            expandedPosts.remove(at: index)
         } else {
             expandedPosts.append(post)
         }
