@@ -14,12 +14,30 @@ protocol PostListView: AnyObject {
 
 final class PostListViewController: UIViewController {
     
-    //MARK: - Outlets
-    @IBOutlet private weak var sortButton: UIBarButtonItem!
-    @IBOutlet private weak var tableView: UITableView!
-    
     //MARK: - Properties
     var presenter: PostListPresenter!
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.showsVerticalScrollIndicator = false
+        return tableView
+    }()
+    
+    private lazy var tabsView: TabsView = {
+        let tabsView = TabsView(dataSource: ["List", "Grid", "Gallery"],
+                                selectedStateColor: .blue,
+                                unselectedStateColor: .black)
+        return tabsView
+    }()
+    
+    private lazy var sortButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "menubar.arrow.down.rectangle"),
+                                     style: .plain,
+                                     target: self,
+                                     action: nil)
+        button.tintColor = .black
+        return button
+    }()
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -29,8 +47,10 @@ final class PostListViewController: UIViewController {
     
     //MARK: - Private methods
     private func initialSetup() {
+        setupTabsView()
         setupTableView()
         setupSortMenu()
+        setupNavigationBar()
         presenter.fetchPostList()
     }
     
@@ -38,6 +58,34 @@ final class PostListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         PostListCell.registerNib(in: self.tableView)
+        setupTableViewConstraints()
+    }
+    
+    private func setupTabsView() {
+        view.addSubview(tabsView)
+        setupTabsViewConstraints()
+    }
+    
+    private func setupTableViewConstraints() {
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func setupTabsViewConstraints() {
+        view.addSubview(tabsView)
+        tabsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tabsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabsView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            tabsView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            tabsView.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
     
     private func setupSortMenu() {
@@ -53,6 +101,11 @@ final class PostListViewController: UIViewController {
             }
         ])
         sortButton.menu = sortMenu
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = sortButton
+        title = "PostList"
     }
 }
 

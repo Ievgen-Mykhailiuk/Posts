@@ -9,7 +9,7 @@ import UIKit
 
 extension String {
     func rectHeight(with width: CGFloat,
-                    with font: UIFont = UIFont.systemFont(ofSize: 13)) -> CGFloat {
+                    with font: UIFont = UIFont.systemFont(ofSize: 16)) -> CGFloat {
         let rect = self.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude),
                                      options: .usesLineFragmentOrigin,
                                      attributes: [NSAttributedString.Key.font: font],
@@ -17,9 +17,15 @@ extension String {
         return rect.height
     }
     
-    func visibleRectHeight(with font: UIFont = .systemFont(ofSize: 13),
+    func visibleRectHeight(with font: UIFont = .systemFont(ofSize: 16),
                            numberOfLines: Int) -> CGFloat {
         let height = font.lineHeight * CGFloat(numberOfLines)
         return height
+    }
+    
+    func textWidth(with font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.width
     }
 }
