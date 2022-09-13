@@ -11,7 +11,7 @@
 		FC03DC3628CF3AEB00B88553 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC3528CF3AEB00B88553 /* Date+Extension.swift */; };
 		FC03DC3C28CF3BDD00B88553 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC3B28CF3BDD00B88553 /* BaseRouter.swift */; };
 		FC03DC3E28CF3C0200B88553 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC3D28CF3C0200B88553 /* BaseTableViewCell.swift */; };
-		FC03DC4028CF3C1E00B88553 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC3F28CF3C1E00B88553 /* Model.swift */; };
+		FC03DC4028CF3C1E00B88553 /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC3F28CF3C1E00B88553 /* PostList.swift */; };
 		FC03DC4228CF3C9300B88553 /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4128CF3C9300B88553 /* PostListViewController.swift */; };
 		FC03DC4528CF3CCF00B88553 /* PostListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4328CF3CCF00B88553 /* PostListCell.swift */; };
 		FC03DC4628CF3CCF00B88553 /* PostListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC03DC4428CF3CCF00B88553 /* PostListCell.xib */; };
@@ -20,6 +20,14 @@
 		FC03DC4C28CF3D7000B88553 /* DefaultPostListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4B28CF3D7000B88553 /* DefaultPostListAssembly.swift */; };
 		FC03DC4E28CF3D8F00B88553 /* PostListAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4D28CF3D8F00B88553 /* PostListAPIService.swift */; };
 		FC03DC6128CF652300B88553 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC6028CF652300B88553 /* String+Extension.swift */; };
+		FC03DC7728D06F5100B88553 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC7628D06F5100B88553 /* Post.swift */; };
+		FC03DC7928D06F8300B88553 /* PostDetailsViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC7828D06F8300B88553 /* PostDetailsViewPresenter.swift */; };
+		FC03DC7B28D0701F00B88553 /* PostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC7A28D0701F00B88553 /* PostDetailsViewController.swift */; };
+		FC03DC7D28D0710300B88553 /* DefaultPostDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC7C28D0710300B88553 /* DefaultPostDetailsRouter.swift */; };
+		FC03DC7F28D0711E00B88553 /* PostDetailsAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC7E28D0711E00B88553 /* PostDetailsAPIService.swift */; };
+		FC03DC8128D0713400B88553 /* DefaultPostDetailsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8028D0713400B88553 /* DefaultPostDetailsAssembly.swift */; };
+		FC03DC8328D0716800B88553 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8228D0716800B88553 /* UIImageView+Extension.swift */; };
+		FC03DC8628D0719D00B88553 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FC03DC8528D0719D00B88553 /* Kingfisher */; };
 		FC60226C28CF38E70073ED85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60226B28CF38E70073ED85 /* AppDelegate.swift */; };
 		FC60226E28CF38E70073ED85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60226D28CF38E70073ED85 /* SceneDelegate.swift */; };
 		FC60227328CF38E70073ED85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC60227128CF38E70073ED85 /* Main.storyboard */; };
@@ -39,7 +47,7 @@
 		FC03DC3528CF3AEB00B88553 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		FC03DC3B28CF3BDD00B88553 /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
 		FC03DC3D28CF3C0200B88553 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
-		FC03DC3F28CF3C1E00B88553 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		FC03DC3F28CF3C1E00B88553 /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		FC03DC4128CF3C9300B88553 /* PostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewController.swift; sourceTree = "<group>"; };
 		FC03DC4328CF3CCF00B88553 /* PostListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListCell.swift; sourceTree = "<group>"; };
 		FC03DC4428CF3CCF00B88553 /* PostListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostListCell.xib; sourceTree = "<group>"; };
@@ -48,6 +56,13 @@
 		FC03DC4B28CF3D7000B88553 /* DefaultPostListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostListAssembly.swift; sourceTree = "<group>"; };
 		FC03DC4D28CF3D8F00B88553 /* PostListAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListAPIService.swift; sourceTree = "<group>"; };
 		FC03DC6028CF652300B88553 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		FC03DC7628D06F5100B88553 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		FC03DC7828D06F8300B88553 /* PostDetailsViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsViewPresenter.swift; sourceTree = "<group>"; };
+		FC03DC7A28D0701F00B88553 /* PostDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
+		FC03DC7C28D0710300B88553 /* DefaultPostDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostDetailsRouter.swift; sourceTree = "<group>"; };
+		FC03DC7E28D0711E00B88553 /* PostDetailsAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsAPIService.swift; sourceTree = "<group>"; };
+		FC03DC8028D0713400B88553 /* DefaultPostDetailsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostDetailsAssembly.swift; sourceTree = "<group>"; };
+		FC03DC8228D0716800B88553 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		FC60226828CF38E70073ED85 /* Posts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Posts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC60226B28CF38E70073ED85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC60226D28CF38E70073ED85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,13 +84,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC03DC8628D0719D00B88553 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FC03DC3728CF3BA700B88553 /* PostList */ = {
+		FC03DC3728CF3BA700B88553 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				FC03DC3A28CF3BBF00B88553 /* Model */,
@@ -85,7 +101,7 @@
 				FC03DC4B28CF3D7000B88553 /* DefaultPostListAssembly.swift */,
 				FC03DC4D28CF3D8F00B88553 /* PostListAPIService.swift */,
 			);
-			path = PostList;
+			path = List;
 			sourceTree = "<group>";
 		};
 		FC03DC3828CF3BB000B88553 /* Presenter */ = {
@@ -110,7 +126,7 @@
 		FC03DC3A28CF3BBF00B88553 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FC03DC3F28CF3C1E00B88553 /* Model.swift */,
+				FC03DC3F28CF3C1E00B88553 /* PostList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -131,6 +147,43 @@
 				FC60227628CF38E90073ED85 /* LaunchScreen.storyboard */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		FC03DC7228D06F0200B88553 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DC7528D06F1E00B88553 /* Model */,
+				FC03DC7428D06F1700B88553 /* View */,
+				FC03DC7328D06F0E00B88553 /* Presenter */,
+				FC03DC7C28D0710300B88553 /* DefaultPostDetailsRouter.swift */,
+				FC03DC8028D0713400B88553 /* DefaultPostDetailsAssembly.swift */,
+				FC03DC7E28D0711E00B88553 /* PostDetailsAPIService.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		FC03DC7328D06F0E00B88553 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DC7828D06F8300B88553 /* PostDetailsViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		FC03DC7428D06F1700B88553 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DC7A28D0701F00B88553 /* PostDetailsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FC03DC7528D06F1E00B88553 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DC7628D06F5100B88553 /* Post.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		FC60225F28CF38E70073ED85 = {
@@ -155,8 +208,8 @@
 				FC03DC5228CF412800B88553 /* SupportFiles */,
 				FC03DC5128CF411D00B88553 /* App */,
 				FC60227F28CF391B0073ED85 /* BaseServices */,
-				FC60228428CF397E0073ED85 /* Protocols */,
 				FC60228228CF392E0073ED85 /* Extensions */,
+				FC60228428CF397E0073ED85 /* Protocols */,
 				FC60228028CF392A0073ED85 /* Modules */,
 				FC60227928CF38E90073ED85 /* Info.plist */,
 			);
@@ -178,7 +231,8 @@
 		FC60228028CF392A0073ED85 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				FC03DC3728CF3BA700B88553 /* PostList */,
+				FC03DC3728CF3BA700B88553 /* List */,
+				FC03DC7228D06F0200B88553 /* Details */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -190,9 +244,9 @@
 				FC03DC3328CF3ADE00B88553 /* UINavigationController+Extension.swift */,
 				FC03DC3528CF3AEB00B88553 /* Date+Extension.swift */,
 				FC03DC6028CF652300B88553 /* String+Extension.swift */,
+				FC03DC8228D0716800B88553 /* UIImageView+Extension.swift */,
 			);
-			name = Extensions;
-			path = Modules/Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		FC60228428CF397E0073ED85 /* Protocols */ = {
@@ -221,6 +275,9 @@
 			dependencies = (
 			);
 			name = Posts;
+			packageProductDependencies = (
+				FC03DC8528D0719D00B88553 /* Kingfisher */,
+			);
 			productName = Posts;
 			productReference = FC60226828CF38E70073ED85 /* Posts.app */;
 			productType = "com.apple.product-type.application";
@@ -249,6 +306,9 @@
 				Base,
 			);
 			mainGroup = FC60225F28CF38E70073ED85;
+			packageReferences = (
+				FC03DC8428D0719D00B88553 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = FC60226928CF38E70073ED85 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -277,10 +337,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC03DC4028CF3C1E00B88553 /* Model.swift in Sources */,
+				FC03DC7728D06F5100B88553 /* Post.swift in Sources */,
+				FC03DC4028CF3C1E00B88553 /* PostList.swift in Sources */,
+				FC03DC8328D0716800B88553 /* UIImageView+Extension.swift in Sources */,
 				FC03DC6128CF652300B88553 /* String+Extension.swift in Sources */,
 				FC03DC3C28CF3BDD00B88553 /* BaseRouter.swift in Sources */,
 				FC03DC4C28CF3D7000B88553 /* DefaultPostListAssembly.swift in Sources */,
+				FC03DC7D28D0710300B88553 /* DefaultPostDetailsRouter.swift in Sources */,
 				FC60228628CF399A0073ED85 /* EndPoint.swift in Sources */,
 				FC03DC3428CF3ADE00B88553 /* UINavigationController+Extension.swift in Sources */,
 				FC03DC4A28CF3D4F00B88553 /* DefaultPostListRouter.swift in Sources */,
@@ -296,8 +359,12 @@
 				FC60229228CF3A6F0073ED85 /* UIViewController+Extension.swift in Sources */,
 				FC60228E28CF3A150073ED85 /* TableCellRegistable.swift in Sources */,
 				FC60229028CF3A180073ED85 /* CellIdentifying.swift in Sources */,
+				FC03DC7F28D0711E00B88553 /* PostDetailsAPIService.swift in Sources */,
 				FC60226E28CF38E70073ED85 /* SceneDelegate.swift in Sources */,
+				FC03DC7B28D0701F00B88553 /* PostDetailsViewController.swift in Sources */,
 				FC60228828CF399E0073ED85 /* NetworkError.swift in Sources */,
+				FC03DC8128D0713400B88553 /* DefaultPostDetailsAssembly.swift in Sources */,
+				FC03DC7928D06F8300B88553 /* PostDetailsViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +584,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FC03DC8428D0719D00B88553 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FC03DC8528D0719D00B88553 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC03DC8428D0719D00B88553 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FC60226028CF38E70073ED85 /* Project object */;
 }

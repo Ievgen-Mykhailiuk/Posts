@@ -9,7 +9,7 @@ import UIKit
 
 protocol PostListView: AnyObject {
     func updatePostList()
-    func didFailWithError(error: String)
+    func showAlert(error: String)
 }
 
 final class PostListViewController: UIViewController {
@@ -36,6 +36,7 @@ final class PostListViewController: UIViewController {
     
     private func setupTableView() {
         tableView.dataSource = self
+        tableView.delegate = self
         PostListCell.registerNib(in: self.tableView)
     }
     
@@ -63,7 +64,7 @@ extension PostListViewController: PostListView {
         }
     }
     
-    func didFailWithError(error: String) {
+    func showAlert(error: String) {
         DispatchQueue.main.async {
             self.showAlert(title: "Error", message: error)
         }
@@ -83,6 +84,14 @@ extension PostListViewController: UITableViewDataSource {
         cell.configure(post: post, isExpanded: state)
         cell.delegate = self
         return cell
+    }
+}
+
+//MARK: - UITableViewDelegate
+extension PostListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showDetails(at: indexPath.row)
+        self.tableView.deselectRow(at: indexPath, animated: false)
     }
 }
 

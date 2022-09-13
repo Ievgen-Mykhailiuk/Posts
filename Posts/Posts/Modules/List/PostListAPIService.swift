@@ -12,7 +12,6 @@ protocol PostListNetworkService {
 }
 
 class PostListAPIService: BaseNetworkService, PostListNetworkService {
-    
     func request(completion: @escaping (Result<PostList, NetworkError>) -> Void) {
         request(from: .postList, httpMethod: .get) { (result: Result<PostList, NetworkError>) in
             switch result {
