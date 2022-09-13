@@ -208,8 +208,8 @@
 				FC03DC5228CF412800B88553 /* SupportFiles */,
 				FC03DC5128CF411D00B88553 /* App */,
 				FC60227F28CF391B0073ED85 /* BaseServices */,
-				FC60228428CF397E0073ED85 /* Protocols */,
 				FC60228228CF392E0073ED85 /* Extensions */,
+				FC60228428CF397E0073ED85 /* Protocols */,
 				FC60228028CF392A0073ED85 /* Modules */,
 				FC60227928CF38E90073ED85 /* Info.plist */,
 			);
@@ -246,8 +246,7 @@
 				FC03DC6028CF652300B88553 /* String+Extension.swift */,
 				FC03DC8228D0716800B88553 /* UIImageView+Extension.swift */,
 			);
-			name = Extensions;
-			path = Modules/Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		FC60228428CF397E0073ED85 /* Protocols */ = {
