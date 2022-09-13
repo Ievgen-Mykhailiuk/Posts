@@ -1,28 +1,29 @@
 //
-//  Model.swift
+//  Post.swift
 //  Posts
 //
-//  Created by Евгений  on 12/09/2022.
+//  Created by Евгений  on 13/09/2022.
 //
 
 import Foundation
 
-struct PostList: Codable {
-    let posts: [PostListModel]
+struct Post: Codable {
+    let post: PostDetailsModel
 }
 
-struct PostListModel: Codable {
+struct PostDetailsModel: Codable {
     let id: Int
     let timeShamp: Double
     let title: String
-    let previewText: String
+    let text: String
+    let imageUrl: String
     let likesCount: Int
     
     enum CodingKeys: String, CodingKey {
         case id = "postId"
         case timeShamp = "timeshamp"
-        case title
-        case previewText = "preview_text"
+        case title, text
+        case imageUrl = "postImage"
         case likesCount = "likes_count"
     }
 }

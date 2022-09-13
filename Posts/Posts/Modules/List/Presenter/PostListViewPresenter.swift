@@ -14,6 +14,7 @@ protocol PostListPresenter: AnyObject {
     func getPostListCount() -> Int
     func isExpanded(_ postId: Int) -> Bool
     func setState(for post: Int)
+    func showDetails(at index: Int)
 }
 
 enum SortingMethod {
@@ -58,7 +59,7 @@ extension PostListViewPresenter: PostListPresenter {
             case .success(let data):
                 self.postList = data.posts
             case .failure(let error):
-                self.view.didFailWithError(error: error.rawValue)
+                self.view.showAlert(error: error.rawValue)
             }
         }
     }
@@ -99,5 +100,10 @@ extension PostListViewPresenter: PostListPresenter {
         } else {
             expandedPosts.append(post)
         }
+    }
+    
+    func showDetails(at index: Int) {
+        let postId = postList[index].id
+        router.showDetails(for: postId)
     }
 }
