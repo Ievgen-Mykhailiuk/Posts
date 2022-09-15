@@ -8,28 +8,26 @@
 import UIKit
 
 protocol PostListView: AnyObject {
-    func updatePostList()
+    func updatePostList(postList: [PostListModel])
     func showAlert(error: String)
+    func showList()
+    func showGrid()
+    func showGallery()
 }
 
 final class PostListViewController: UIViewController {
     
     //MARK: - Properties
     var presenter: PostListPresenter!
-    
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
-    }()
-    
-    private lazy var tabsView: TabsView = {
-        let tabsView = TabsView(dataSource: ["List", "Grid", "Gallery"],
-                                selectedStateColor: .blue,
-                                unselectedStateColor: .black)
+    private var listView: ListView?
+    private var gridView: GridView?
+    private var galleryView: GalleryView?
+    private lazy var tabsView: TabView = {
+        let tabsView = TabView(dataSource: ["List", "Grid", "Gallery"],
+                               selectedStateColor: .blue,
+                               unselectedStateColor: .black)
         return tabsView
     }()
-    
     private lazy var sortButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "menubar.arrow.down.rectangle"),
                                      style: .plain,
@@ -47,45 +45,75 @@ final class PostListViewController: UIViewController {
     
     //MARK: - Private methods
     private func initialSetup() {
-        setupTabsView()
-        setupTableView()
-        setupSortMenu()
-        setupNavigationBar()
-        presenter.fetchPostList()
-    }
-    
-    private func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        PostListCell.registerNib(in: self.tableView)
-        setupTableViewConstraints()
+        presenter.fetchPostList { result in
+            switch result {
+            case .success(()):
+                self.setupTabsView()
+                self.setupListView()
+                self.setupSortMenu()
+                self.setupNavigationBar()
+            case .failure(let error):
+                self.showAlert(error: error.localizedDescription)
+            }
+        }
     }
     
     private func setupTabsView() {
+        tabsView.delegate = self
         view.addSubview(tabsView)
-        setupTabsViewConstraints()
-    }
-    
-    private func setupTableViewConstraints() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-    }
-    
-    private func setupTabsViewConstraints() {
         view.addSubview(tabsView)
         tabsView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tabsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tabsView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            tabsView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            tabsView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tabsView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tabsView.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    private func setupListView() {
+        listView = ListView(dataSource: presenter.getDataSource())
+        if let contentView = listView {
+            contentView.delegate = self
+            view.addSubview(contentView)
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                contentView.topAnchor.constraint(equalTo: tabsView.bottomAnchor, constant: 3),
+                contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        }
+    }
+    
+    private func setupGridView() {
+        gridView = GridView(dataSource: presenter.getDataSource())
+        if let contentView = gridView {
+            contentView.delegate = self
+            view.addSubview(contentView)
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                contentView.topAnchor.constraint(equalTo: tabsView.bottomAnchor, constant: 3),
+                contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        }
+    }
+    
+    private func setupGalleryView() {
+        galleryView = GalleryView(dataSource: presenter.getDataSource())
+        if let contentView = galleryView {
+            contentView.delegate = self
+            view.addSubview(contentView)
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                contentView.topAnchor.constraint(equalTo: tabsView.bottomAnchor, constant: 3),
+                contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        }
     }
     
     private func setupSortMenu() {
@@ -111,46 +139,63 @@ final class PostListViewController: UIViewController {
 
 //MARK: - PostListViewProtocol
 extension PostListViewController: PostListView {
-    func updatePostList() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+    func showList() {
+        gridView?.removeFromSuperview()
+        gridView = nil
+        galleryView?.removeFromSuperview()
+        galleryView = nil
+        setupListView()
+    }
+    
+    func showGrid() {
+        listView?.removeFromSuperview()
+        listView = nil
+        galleryView?.removeFromSuperview()
+        galleryView = nil
+        setupGridView()
+    }
+    
+    func showGallery() {
+        gridView?.removeFromSuperview()
+        gridView = nil
+        listView?.removeFromSuperview()
+        listView = nil
+        setupGalleryView()
+    }
+    
+    func updatePostList(postList: [PostListModel]) {
+        if listView != nil {
+            listView?.dataSource = postList
+        } else if gridView != nil {
+            gridView?.dataSource = postList
+        } else {
+            galleryView?.dataSource = postList
         }
     }
     
     func showAlert(error: String) {
-        DispatchQueue.main.async {
-            self.showAlert(title: "Error", message: error)
-        }
+        self.showAlert(title: "Error", message: error)
     }
 }
 
-//MARK: - UITableViewDataSource
-extension PostListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.getPostListCount()
+//MARK: - TabsViewDelegate
+extension PostListViewController: TabViewDelegate {
+    func tabSelected(type: TabType) {
+        presenter.changeTab(type: type)
+    }
+}
+
+//MARK: - ListViewDelegate
+extension PostListViewController: ContentViewDelegate {
+    func readMoreButtonTapped(on post: Int) {
+        presenter.setState(for: post)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PostListCell = .cell(in: self.tableView, at: indexPath)
-        let post = presenter.getPost(at: indexPath.row)
-        let state = presenter.isExpanded(post.id)
-        cell.configure(post: post, isExpanded: state)
-        cell.delegate = self
-        return cell
+    func cellSelected(at index: Int) {
+        presenter.showDetails(for: index)
     }
-}
-
-//MARK: - UITableViewDelegate
-extension PostListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showDetails(at: indexPath.row)
-        self.tableView.deselectRow(at: indexPath, animated: false)
-    }
-}
-
-//MARK: - CellStateDelegate
-extension PostListViewController: CellStateDelegate {
-    func readMoreButtonTapped(_ post: Int) {
-        presenter.setState(for: post)
+    
+    func getPostState(for post: Int) -> Bool {
+        return presenter.isExpanded(post)
     }
 }

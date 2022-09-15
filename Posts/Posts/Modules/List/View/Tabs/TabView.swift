@@ -7,9 +7,14 @@
 
 import UIKit
 
-final class TabsView: UIView {
+protocol TabViewDelegate: AnyObject {
+    func tabSelected(type: TabType)
+}
+
+final class TabView: UIView {
     
     //MARK: - Properties
+    weak var delegate: TabViewDelegate?
     private let dataSource: [String]
     private let selectedStateColor: UIColor
     private let unselectedStateColor: UIColor
@@ -48,7 +53,6 @@ final class TabsView: UIView {
     init(dataSource: [String],
          selectedStateColor: UIColor,
          unselectedStateColor: UIColor) {
-        
         self.dataSource = dataSource
         self.selectedStateColor = selectedStateColor
         self.unselectedStateColor = unselectedStateColor
@@ -57,9 +61,6 @@ final class TabsView: UIView {
     }
     
     required init?(coder: NSCoder) {
-       
-//        super.init(coder: coder)
-
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -73,7 +74,7 @@ final class TabsView: UIView {
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        TabsCollectionViewCell.registerClass(in: self.collectionView)
+        TabCell.registerClass(in: self.collectionView)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.addSubview(indicatorView)
         addSubview(collectionView)
@@ -127,13 +128,13 @@ final class TabsView: UIView {
 }
 
 //MARK: - UICollectionViewDataSource
-extension TabsView: UICollectionViewDataSource {
+extension TabView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: TabsCollectionViewCell = .cell(in: collectionView, at: indexPath)
+        let cell: TabCell = .cell(in: collectionView, at: indexPath)
         let tabTitle = dataSource[indexPath.item]
         cell.configure(with: tabTitle,
                        isSelected: selectedTabIndex == indexPath.item,
@@ -144,15 +145,17 @@ extension TabsView: UICollectionViewDataSource {
 }
 
 //MARK: - UICollectionViewDelegate
-extension TabsView: UICollectionViewDelegate {
+extension TabView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedTabIndex = indexPath.item
         selectTab(at: indexPath.item)
+        guard let type = TabType(rawValue: dataSource[indexPath.item]) else { return }
+        delegate?.tabSelected(type: type)
     }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension TabsView: UICollectionViewDelegateFlowLayout {
+extension TabView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

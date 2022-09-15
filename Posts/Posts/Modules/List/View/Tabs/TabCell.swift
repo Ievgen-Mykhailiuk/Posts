@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TabsCollectionViewCell: BaseCollectionViewCell {
+final class TabCell: BaseCollectionViewCell {
     
     //MARK: - Properties
     private var selectedStateColor: UIColor = .blue

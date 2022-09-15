@@ -13,8 +13,6 @@
 		FC03DC3E28CF3C0200B88553 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC3D28CF3C0200B88553 /* BaseTableViewCell.swift */; };
 		FC03DC4028CF3C1E00B88553 /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC3F28CF3C1E00B88553 /* PostList.swift */; };
 		FC03DC4228CF3C9300B88553 /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4128CF3C9300B88553 /* PostListViewController.swift */; };
-		FC03DC4528CF3CCF00B88553 /* PostListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4328CF3CCF00B88553 /* PostListCell.swift */; };
-		FC03DC4628CF3CCF00B88553 /* PostListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC03DC4428CF3CCF00B88553 /* PostListCell.xib */; };
 		FC03DC4828CF3D1F00B88553 /* PostListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4728CF3D1F00B88553 /* PostListViewPresenter.swift */; };
 		FC03DC4A28CF3D4F00B88553 /* DefaultPostListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4928CF3D4F00B88553 /* DefaultPostListRouter.swift */; };
 		FC03DC4C28CF3D7000B88553 /* DefaultPostListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC4B28CF3D7000B88553 /* DefaultPostListAssembly.swift */; };
@@ -28,12 +26,24 @@
 		FC03DC8128D0713400B88553 /* DefaultPostDetailsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8028D0713400B88553 /* DefaultPostDetailsAssembly.swift */; };
 		FC03DC8328D0716800B88553 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8228D0716800B88553 /* UIImageView+Extension.swift */; };
 		FC03DC8628D0719D00B88553 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FC03DC8528D0719D00B88553 /* Kingfisher */; };
-		FC03DC8828D08BE000B88553 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8728D08BE000B88553 /* TabsView.swift */; };
-		FC03DC8A28D08C0300B88553 /* TabsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8928D08C0300B88553 /* TabsCollectionViewCell.swift */; };
+		FC03DC8828D08BE000B88553 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8728D08BE000B88553 /* TabView.swift */; };
+		FC03DC8A28D08C0300B88553 /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8928D08C0300B88553 /* TabCell.swift */; };
 		FC03DC8C28D08C3D00B88553 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8B28D08C3D00B88553 /* BaseCollectionViewCell.swift */; };
 		FC03DC8E28D08C6200B88553 /* CollectionCellRegistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8D28D08C6200B88553 /* CollectionCellRegistable.swift */; };
 		FC03DC9028D08C8100B88553 /* CollectionCellDequeueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC8F28D08C8100B88553 /* CollectionCellDequeueable.swift */; };
 		FC03DC9228D08CE200B88553 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC03DC9128D08CE200B88553 /* UIView+Extension.swift */; };
+		FC47471428D3604A000AB069 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47471328D3604A000AB069 /* ListView.swift */; };
+		FC47471728D36084000AB069 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47471528D36084000AB069 /* ListCell.swift */; };
+		FC47471828D36084000AB069 /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC47471628D36084000AB069 /* ListCell.xib */; };
+		FC47471A28D360D7000AB069 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47471928D360D7000AB069 /* GridView.swift */; };
+		FC47471D28D3610E000AB069 /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47471B28D3610E000AB069 /* GridCell.swift */; };
+		FC47471E28D3610E000AB069 /* GridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC47471C28D3610E000AB069 /* GridCell.xib */; };
+		FC47472028D36143000AB069 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47471F28D36143000AB069 /* GalleryView.swift */; };
+		FC47472228D36163000AB069 /* GalleryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47472128D36163000AB069 /* GalleryLayout.swift */; };
+		FC47472528D36195000AB069 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47472328D36195000AB069 /* GalleryCell.swift */; };
+		FC47472628D36195000AB069 /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC47472428D36195000AB069 /* GalleryCell.xib */; };
+		FC47472828D361E6000AB069 /* ContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47472728D361E6000AB069 /* ContentViewDelegate.swift */; };
+		FC47472A28D361FB000AB069 /* CellStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC47472928D361FB000AB069 /* CellStateDelegate.swift */; };
 		FC60226C28CF38E70073ED85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60226B28CF38E70073ED85 /* AppDelegate.swift */; };
 		FC60226E28CF38E70073ED85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60226D28CF38E70073ED85 /* SceneDelegate.swift */; };
 		FC60227328CF38E70073ED85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC60227128CF38E70073ED85 /* Main.storyboard */; };
@@ -55,8 +65,6 @@
 		FC03DC3D28CF3C0200B88553 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		FC03DC3F28CF3C1E00B88553 /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		FC03DC4128CF3C9300B88553 /* PostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewController.swift; sourceTree = "<group>"; };
-		FC03DC4328CF3CCF00B88553 /* PostListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListCell.swift; sourceTree = "<group>"; };
-		FC03DC4428CF3CCF00B88553 /* PostListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostListCell.xib; sourceTree = "<group>"; };
 		FC03DC4728CF3D1F00B88553 /* PostListViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewPresenter.swift; sourceTree = "<group>"; };
 		FC03DC4928CF3D4F00B88553 /* DefaultPostListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostListRouter.swift; sourceTree = "<group>"; };
 		FC03DC4B28CF3D7000B88553 /* DefaultPostListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostListAssembly.swift; sourceTree = "<group>"; };
@@ -69,12 +77,24 @@
 		FC03DC7E28D0711E00B88553 /* PostDetailsAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsAPIService.swift; sourceTree = "<group>"; };
 		FC03DC8028D0713400B88553 /* DefaultPostDetailsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPostDetailsAssembly.swift; sourceTree = "<group>"; };
 		FC03DC8228D0716800B88553 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
-		FC03DC8728D08BE000B88553 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
-		FC03DC8928D08C0300B88553 /* TabsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC03DC8728D08BE000B88553 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		FC03DC8928D08C0300B88553 /* TabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
 		FC03DC8B28D08C3D00B88553 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC03DC8D28D08C6200B88553 /* CollectionCellRegistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellRegistable.swift; sourceTree = "<group>"; };
 		FC03DC8F28D08C8100B88553 /* CollectionCellDequeueable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCellDequeueable.swift; sourceTree = "<group>"; };
 		FC03DC9128D08CE200B88553 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		FC47471328D3604A000AB069 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		FC47471528D36084000AB069 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		FC47471628D36084000AB069 /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
+		FC47471928D360D7000AB069 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		FC47471B28D3610E000AB069 /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
+		FC47471C28D3610E000AB069 /* GridCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridCell.xib; sourceTree = "<group>"; };
+		FC47471F28D36143000AB069 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		FC47472128D36163000AB069 /* GalleryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryLayout.swift; sourceTree = "<group>"; };
+		FC47472328D36195000AB069 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
+		FC47472428D36195000AB069 /* GalleryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
+		FC47472728D361E6000AB069 /* ContentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewDelegate.swift; sourceTree = "<group>"; };
+		FC47472928D361FB000AB069 /* CellStateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStateDelegate.swift; sourceTree = "<group>"; };
 		FC60226828CF38E70073ED85 /* Posts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Posts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC60226B28CF38E70073ED85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC60226D28CF38E70073ED85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,11 +148,11 @@
 			isa = PBXGroup;
 			children = (
 				FC03DC4128CF3C9300B88553 /* PostListViewController.swift */,
-				FC03DC4328CF3CCF00B88553 /* PostListCell.swift */,
-				FC03DC4428CF3CCF00B88553 /* PostListCell.xib */,
 				FC60227128CF38E70073ED85 /* Main.storyboard */,
-				FC03DC8728D08BE000B88553 /* TabsView.swift */,
-				FC03DC8928D08C0300B88553 /* TabsCollectionViewCell.swift */,
+				FC47471228D36021000AB069 /* Tabs */,
+				FC47471128D3600F000AB069 /* List */,
+				FC47471028D36000000AB069 /* Grid */,
+				FC47470F28D35FF7000AB069 /* Gallery */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -198,6 +218,46 @@
 				FC03DC7628D06F5100B88553 /* Post.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FC47470F28D35FF7000AB069 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				FC47472128D36163000AB069 /* GalleryLayout.swift */,
+				FC47471F28D36143000AB069 /* GalleryView.swift */,
+				FC47472328D36195000AB069 /* GalleryCell.swift */,
+				FC47472428D36195000AB069 /* GalleryCell.xib */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		FC47471028D36000000AB069 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				FC47471928D360D7000AB069 /* GridView.swift */,
+				FC47471B28D3610E000AB069 /* GridCell.swift */,
+				FC47471C28D3610E000AB069 /* GridCell.xib */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
+		FC47471128D3600F000AB069 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				FC47471328D3604A000AB069 /* ListView.swift */,
+				FC47471528D36084000AB069 /* ListCell.swift */,
+				FC47471628D36084000AB069 /* ListCell.xib */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		FC47471228D36021000AB069 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				FC03DC8728D08BE000B88553 /* TabView.swift */,
+				FC03DC8928D08C0300B88553 /* TabCell.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 		FC60225F28CF38E70073ED85 = {
@@ -273,6 +333,8 @@
 				FC60228B28CF3A120073ED85 /* TableCellDequeueable.swift */,
 				FC03DC8D28D08C6200B88553 /* CollectionCellRegistable.swift */,
 				FC03DC8F28D08C8100B88553 /* CollectionCellDequeueable.swift */,
+				FC47472728D361E6000AB069 /* ContentViewDelegate.swift */,
+				FC47472928D361FB000AB069 /* CellStateDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -342,9 +404,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC60227828CF38E90073ED85 /* LaunchScreen.storyboard in Resources */,
+				FC47471E28D3610E000AB069 /* GridCell.xib in Resources */,
 				FC60227528CF38E90073ED85 /* Assets.xcassets in Resources */,
 				FC60227328CF38E70073ED85 /* Main.storyboard in Resources */,
-				FC03DC4628CF3CCF00B88553 /* PostListCell.xib in Resources */,
+				FC47471828D36084000AB069 /* ListCell.xib in Resources */,
+				FC47472628D36195000AB069 /* GalleryCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,12 +420,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC03DC7728D06F5100B88553 /* Post.swift in Sources */,
+				FC47472828D361E6000AB069 /* ContentViewDelegate.swift in Sources */,
 				FC03DC4028CF3C1E00B88553 /* PostList.swift in Sources */,
-				FC03DC8828D08BE000B88553 /* TabsView.swift in Sources */,
+				FC03DC8828D08BE000B88553 /* TabView.swift in Sources */,
+				FC47471D28D3610E000AB069 /* GridCell.swift in Sources */,
+				FC47472028D36143000AB069 /* GalleryView.swift in Sources */,
 				FC03DC8328D0716800B88553 /* UIImageView+Extension.swift in Sources */,
 				FC03DC6128CF652300B88553 /* String+Extension.swift in Sources */,
+				FC47472228D36163000AB069 /* GalleryLayout.swift in Sources */,
 				FC03DC3C28CF3BDD00B88553 /* BaseRouter.swift in Sources */,
-				FC03DC8A28D08C0300B88553 /* TabsCollectionViewCell.swift in Sources */,
+				FC03DC8A28D08C0300B88553 /* TabCell.swift in Sources */,
 				FC03DC8E28D08C6200B88553 /* CollectionCellRegistable.swift in Sources */,
 				FC03DC4C28CF3D7000B88553 /* DefaultPostListAssembly.swift in Sources */,
 				FC03DC7D28D0710300B88553 /* DefaultPostDetailsRouter.swift in Sources */,
@@ -372,14 +440,16 @@
 				FC03DC9028D08C8100B88553 /* CollectionCellDequeueable.swift in Sources */,
 				FC03DC4E28CF3D8F00B88553 /* PostListAPIService.swift in Sources */,
 				FC03DC3E28CF3C0200B88553 /* BaseTableViewCell.swift in Sources */,
+				FC47471428D3604A000AB069 /* ListView.swift in Sources */,
 				FC60228C28CF3A120073ED85 /* TableCellDequeueable.swift in Sources */,
+				FC47472A28D361FB000AB069 /* CellStateDelegate.swift in Sources */,
 				FC60226C28CF38E70073ED85 /* AppDelegate.swift in Sources */,
 				FC03DC4228CF3C9300B88553 /* PostListViewController.swift in Sources */,
 				FC03DC3628CF3AEB00B88553 /* Date+Extension.swift in Sources */,
 				FC60228A28CF39A00073ED85 /* BaseNetworkService.swift in Sources */,
-				FC03DC4528CF3CCF00B88553 /* PostListCell.swift in Sources */,
 				FC60229228CF3A6F0073ED85 /* UIViewController+Extension.swift in Sources */,
 				FC03DC9228D08CE200B88553 /* UIView+Extension.swift in Sources */,
+				FC47472528D36195000AB069 /* GalleryCell.swift in Sources */,
 				FC60228E28CF3A150073ED85 /* TableCellRegistable.swift in Sources */,
 				FC60229028CF3A180073ED85 /* CellIdentifying.swift in Sources */,
 				FC03DC8C28D08C3D00B88553 /* BaseCollectionViewCell.swift in Sources */,
@@ -387,6 +457,8 @@
 				FC60226E28CF38E70073ED85 /* SceneDelegate.swift in Sources */,
 				FC03DC7B28D0701F00B88553 /* PostDetailsViewController.swift in Sources */,
 				FC60228828CF399E0073ED85 /* NetworkError.swift in Sources */,
+				FC47471A28D360D7000AB069 /* GridView.swift in Sources */,
+				FC47471728D36084000AB069 /* ListCell.swift in Sources */,
 				FC03DC8128D0713400B88553 /* DefaultPostDetailsAssembly.swift in Sources */,
 				FC03DC7928D06F8300B88553 /* PostDetailsViewPresenter.swift in Sources */,
 			);

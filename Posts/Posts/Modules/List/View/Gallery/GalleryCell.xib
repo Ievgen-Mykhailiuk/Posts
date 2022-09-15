@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GalleryCell" id="gTV-IL-0wX" customClass="GalleryCell" customModule="Posts" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="642" height="457"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="642" height="457"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-kg-EGd">
+                        <rect key="frame" x="4" y="0.0" width="634" height="457"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJ8-oG-A03">
+                                <rect key="frame" x="291.5" y="0.0" width="51.5" height="397.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CU1-ff-dCd">
+                                <rect key="frame" x="297.5" y="407.5" width="39.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yDD-SV-Cc6">
+                                <rect key="frame" x="0.0" y="437" width="634" height="20"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nq9-NI-j0c">
+                                        <rect key="frame" x="0.0" y="1.5" width="20" height="17.5"/>
+                                        <color key="tintColor" systemColor="systemRedColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="FOx-gE-JXR"/>
+                                            <constraint firstAttribute="height" constant="20" id="dhr-O1-QKO"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anc-jF-rdA">
+                                        <rect key="frame" x="25" y="0.0" width="232" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="QFX-iC-Zdq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1r-Pk-aIb">
+                                        <rect key="frame" x="262" y="0.0" width="110" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="7j5-eH-JJh"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="readMoreButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="sA8-tN-R09"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MxK-xs-Ff3">
+                                        <rect key="frame" x="377" y="0.0" width="257" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="X1r-Pk-aIb" firstAttribute="centerX" secondItem="yDD-SV-Cc6" secondAttribute="centerX" id="KZK-rq-MLa"/>
+                                    <constraint firstAttribute="height" constant="20" id="plM-OR-Itp"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yDD-SV-Cc6" secondAttribute="trailing" id="MVt-7U-X1W"/>
+                            <constraint firstAttribute="bottom" secondItem="yDD-SV-Cc6" secondAttribute="bottom" id="U1v-0J-8cJ"/>
+                            <constraint firstItem="yDD-SV-Cc6" firstAttribute="leading" secondItem="hvc-kg-EGd" secondAttribute="leading" id="baA-B3-RVi"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="hvc-kg-EGd" secondAttribute="trailing" constant="4" id="Cpl-MN-PYM"/>
+                <constraint firstAttribute="bottom" secondItem="hvc-kg-EGd" secondAttribute="bottom" id="NeY-Jy-72V"/>
+                <constraint firstItem="hvc-kg-EGd" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="PRO-eS-uwQ"/>
+                <constraint firstItem="hvc-kg-EGd" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bla-M1-IOh"/>
+            </constraints>
+            <size key="customSize" width="642" height="457"/>
+            <connections>
+                <outlet property="dateLabel" destination="MxK-xs-Ff3" id="MWe-T2-RnC"/>
+                <outlet property="heartImageView" destination="Nq9-NI-j0c" id="LHj-jA-yiC"/>
+                <outlet property="likesCountLabel" destination="anc-jF-rdA" id="aqb-kF-ffh"/>
+                <outlet property="postTextLabel" destination="CU1-ff-dCd" id="h5a-ga-iXA"/>
+                <outlet property="postTitleLabel" destination="cJ8-oG-A03" id="43K-pO-SJw"/>
+                <outlet property="readMoreButton" destination="X1r-Pk-aIb" id="A9x-SU-EOa"/>
+            </connections>
+            <point key="canvasLocation" x="-217.39130434782609" y="54.575892857142854"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

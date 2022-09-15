@@ -1,18 +1,13 @@
 //
-//  PostListCell.swift
+//  GalleryCell.swift
 //  Posts
 //
-//  Created by Евгений  on 12/09/2022.
+//  Created by Евгений  on 15/09/2022.
 //
 
 import UIKit
 
-//MARK: - Protocols
-protocol CellStateDelegate: AnyObject {
-    func readMoreButtonTapped(_ postId: Int)
-}
-
-final class PostListCell: BaseTableViewCell {
+class GalleryCell: BaseCollectionViewCell {
     
     //MARK: - Outlets
     @IBOutlet private weak var postTitleLabel: UILabel!
@@ -41,9 +36,18 @@ final class PostListCell: BaseTableViewCell {
         readMoreButton.isHidden = false
     }
     
-    //MARK: - Actions
+    //MARK: - Action
     @IBAction func readMoreButtonTapped(_ sender: UIButton) {
         delegate?.readMoreButtonTapped(postId)
+    }
+    
+    //MARK: - Override method
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        let targetSize = CGSize(width: layoutAttributes.frame.width, height: 0)
+        layoutAttributes.frame.size = contentView.systemLayoutSizeFitting(targetSize,
+                                                                          withHorizontalFittingPriority: .required,
+                                                                          verticalFittingPriority: .fittingSizeLevel)
+        return layoutAttributes
     }
     
     //MARK: - View configuration
@@ -68,7 +72,7 @@ final class PostListCell: BaseTableViewCell {
     }
     
     private func initialButtonSetup() {
-        readMoreButton.layer.cornerRadius = 11
+        readMoreButton.makeRounded()
         readMoreButton.layer.borderWidth = 1
         readMoreButton.layer.borderColor = UIColor.black.cgColor
         readMoreButton.setTitleColor(.black, for: .normal)
@@ -80,7 +84,7 @@ final class PostListCell: BaseTableViewCell {
     }
     
     private func checkTextLabelHeight() {
-        let width = postTextLabel.frame.width
+        let width = self.frame.width
         guard let text = postTextLabel.text else { return }
         let height = text.rectHeight(with: width)
         let visibleHeihgt = text.visibleRectHeight(numberOfLines: collapsedLinesCount)
