@@ -28,4 +28,3 @@ final class GalleryLayout : UICollectionViewFlowLayout {
         return attributes
     }
 }
-

@@ -16,7 +16,7 @@ final class ListView: UIView {
         }
     }
     weak var delegate: ContentViewDelegate?
-    private lazy var tableView: UITableView  = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.frame = .zero
         tableView.showsVerticalScrollIndicator = false

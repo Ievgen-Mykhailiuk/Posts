@@ -15,7 +15,7 @@ final class GridView: UIView {
             self.collectionView.reloadData()
         }
     }
-    private let itemsInRow: CGFloat = 2
+    private let itemsInLine: CGFloat = 2
     private let collapsedCellHeight: CGFloat = 200
     private let spacing: CGFloat = 5
     private let totalPaddings: CGFloat = 65
@@ -66,7 +66,7 @@ final class GridView: UIView {
     
     private func calculatedSize(for post: PostListModel) -> CGSize {
         var cellSize: CGSize = .zero
-        let cellWidth = self.collectionView.frame.width/itemsInRow - totalInsets - spacing
+        let cellWidth = self.collectionView.frame.width/itemsInLine - totalInsets - spacing
         guard let isExpanded = self.delegate?.getPostState(for: post.id) else { return .zero}
         if isExpanded {
             let titleLabelHeight = post.previewText.rectHeight(with: cellWidth)
@@ -81,7 +81,7 @@ final class GridView: UIView {
     
     private func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GridCell = .cell(in: self.collectionView, at: indexPath)
-        let post = dataSource[indexPath.row]
+        let post = dataSource[indexPath.item]
         guard let state = self.delegate?.getPostState(for: post.id) else { return cell }
         cell.configure(post: post, isExpanded: state)
         cell.delegate = self
@@ -120,7 +120,7 @@ extension GridView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let post = dataSource[indexPath.row]
+        let post = dataSource[indexPath.item]
         return calculatedSize(for: post)
     }
 

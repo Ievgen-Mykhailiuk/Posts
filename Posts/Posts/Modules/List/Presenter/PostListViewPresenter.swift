@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias Block = (Result<Void, Error>)->()
+typealias Block = (Result<Void, Error>) -> ()
 
 protocol PostListPresenter: AnyObject {
     func fetchPostList(completion: Block?)
@@ -39,12 +39,12 @@ final class PostListViewPresenter {
     private let router: DefaultPostListRouter
     private var postList = [PostListModel]() {
         didSet {
-            self.view.updatePostList(postList: postList)
+            self.view.update(postList: postList)
         }
     }
     private var expandedPosts = [Int]() {
         didSet {
-            self.view.updatePostList(postList: postList)
+            self.view.update(postList: postList)
         }
     }
     

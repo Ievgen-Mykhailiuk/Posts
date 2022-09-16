@@ -66,7 +66,7 @@ final class GalleryView: UIView {
     
     private func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GalleryCell = .cell(in: self.collectionView, at: indexPath)
-        let post = dataSource[indexPath.row]
+        let post = dataSource[indexPath.item]
         guard let state = self.delegate?.getPostState(for: post.id) else { return cell }
         cell.configure(post: post, isExpanded: state)
         cell.delegate = self

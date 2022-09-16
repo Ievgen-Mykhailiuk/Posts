@@ -149,7 +149,7 @@
 			children = (
 				FC03DC4128CF3C9300B88553 /* PostListViewController.swift */,
 				FC60227128CF38E70073ED85 /* Main.storyboard */,
-				FC47471228D36021000AB069 /* Tabs */,
+				FC47471228D36021000AB069 /* Tab */,
 				FC47471128D3600F000AB069 /* List */,
 				FC47471028D36000000AB069 /* Grid */,
 				FC47470F28D35FF7000AB069 /* Gallery */,
@@ -251,13 +251,13 @@
 			path = List;
 			sourceTree = "<group>";
 		};
-		FC47471228D36021000AB069 /* Tabs */ = {
+		FC47471228D36021000AB069 /* Tab */ = {
 			isa = PBXGroup;
 			children = (
 				FC03DC8728D08BE000B88553 /* TabView.swift */,
 				FC03DC8928D08C0300B88553 /* TabCell.swift */,
 			);
-			path = Tabs;
+			path = Tab;
 			sourceTree = "<group>";
 		};
 		FC60225F28CF38E70073ED85 = {

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PostListView: AnyObject {
-    func updatePostList(postList: [PostListModel])
+    func update(postList: [PostListModel])
     func showAlert(error: String)
     func showList()
     func showGrid()
@@ -22,7 +22,7 @@ final class PostListViewController: UIViewController {
     private var listView: ListView?
     private var gridView: GridView?
     private var galleryView: GalleryView?
-    private lazy var tabsView: TabView = {
+    private lazy var tabView: TabView = {
         let tabsView = TabView(dataSource: ["List", "Grid", "Gallery"],
                                selectedStateColor: .blue,
                                unselectedStateColor: .black)
@@ -59,15 +59,14 @@ final class PostListViewController: UIViewController {
     }
     
     private func setupTabsView() {
-        tabsView.delegate = self
-        view.addSubview(tabsView)
-        view.addSubview(tabsView)
-        tabsView.translatesAutoresizingMaskIntoConstraints = false
+        tabView.delegate = self
+        view.addSubview(tabView)
+        tabView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tabsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tabsView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tabsView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tabsView.heightAnchor.constraint(equalToConstant: 60)
+            tabView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tabView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tabView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
     
@@ -78,7 +77,7 @@ final class PostListViewController: UIViewController {
             view.addSubview(contentView)
             contentView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: tabsView.bottomAnchor, constant: 3),
+                contentView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
                 contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
                 contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
                 contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -93,7 +92,7 @@ final class PostListViewController: UIViewController {
             view.addSubview(contentView)
             contentView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: tabsView.bottomAnchor, constant: 3),
+                contentView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
                 contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
                 contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
                 contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -108,7 +107,7 @@ final class PostListViewController: UIViewController {
             view.addSubview(contentView)
             contentView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: tabsView.bottomAnchor, constant: 3),
+                contentView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
                 contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
                 contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
                 contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -163,7 +162,7 @@ extension PostListViewController: PostListView {
         setupGalleryView()
     }
     
-    func updatePostList(postList: [PostListModel]) {
+    func update(postList: [PostListModel]) {
         if listView != nil {
             listView?.dataSource = postList
         } else if gridView != nil {
