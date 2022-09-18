@@ -1,5 +1,5 @@
 //
-//  ListView.swift
+//  TableView.swift
 //  Posts
 //
 //  Created by Евгений  on 15/09/2022.
@@ -7,16 +7,16 @@
 
 import UIKit
 
-final class ListView: UIView {
+final class TableView: UIView {
     
     //MARK: - Properties
     var dataSource = [PostListModel]() {
         didSet {
-            self.tableView.reloadData()
+            self.contentView.reloadData()
         }
     }
     weak var delegate: ContentViewDelegate?
-    private lazy var tableView: UITableView = {
+    private lazy var contentView: UITableView = {
         let tableView = UITableView()
         tableView.frame = .zero
         tableView.showsVerticalScrollIndicator = false
@@ -24,8 +24,7 @@ final class ListView: UIView {
     }()
     
     //MARK: - Life Cycle
-    init(dataSource: [PostListModel]) {
-        self.dataSource = dataSource
+    init() {
         super.init(frame: .zero)
         setupTableView()
     }
@@ -36,25 +35,25 @@ final class ListView: UIView {
     
     //MARK: - Private methods
     private func setupTableView() {
-        ListCell.registerNib(in: self.tableView)
-        tableView.dataSource = self
-        tableView.delegate = self
+        TableCell.registerNib(in: self.contentView)
+        contentView.dataSource = self
+        contentView.delegate = self
         setupTableViewConstraints()
     }
    
     private func setupTableViewConstraints() {
-        addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: self.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: self.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: self.rightAnchor),
+            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     
     private func cellForRow(at indexPath: IndexPath) -> UITableViewCell {
-        let cell: ListCell = .cell(in: self.tableView, at: indexPath)
+        let cell: TableCell = .cell(in: self.contentView, at: indexPath)
         let post = dataSource[indexPath.row]
         guard let state = self.delegate?.getPostState(for: post.id) else { return cell }
         cell.configure(post: post, isExpanded: state)
@@ -64,7 +63,7 @@ final class ListView: UIView {
 }
 
 //MARK: - UITableViewDataSource
-extension ListView: UITableViewDataSource {
+extension TableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
@@ -75,15 +74,15 @@ extension ListView: UITableViewDataSource {
 }
 
 //MARK: - UITableViewDelegate
-extension ListView: UITableViewDelegate {
+extension TableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.cellSelected(at: indexPath.row)
-        self.tableView.deselectRow(at: indexPath, animated: false)
+        self.contentView.deselectRow(at: indexPath, animated: false)
     }
 }
 
 //MARK: - CellStateDelegate
-extension ListView: CellStateDelegate {
+extension TableView: CellStateDelegate {
     func readMoreButtonTapped(_ post: Int) {
         self.delegate?.readMoreButtonTapped(on: post)
     }

@@ -7,10 +7,8 @@
 
 import Foundation
 
-typealias Block = (Result<Void, Error>) -> ()
-
 protocol PostListPresenter: AnyObject {
-    func fetchPostList(completion: Block?)
+    func fetchPostList()
     func sort(_ method: SortingMethod)
     func isExpanded(_ postId: Int) -> Bool
     func setState(for post: Int)
@@ -25,7 +23,7 @@ enum SortingMethod {
     case byDate
 }
 
-enum TabType: String {
+enum TabType: String, CaseIterable {
     case list = "List"
     case grid = "Grid"
     case gallery = "Gallery"
@@ -39,12 +37,12 @@ final class PostListViewPresenter {
     private let router: DefaultPostListRouter
     private var postList = [PostListModel]() {
         didSet {
-            self.view.update(postList: postList)
+            self.view.update()
         }
     }
     private var expandedPosts = [Int]() {
         didSet {
-            self.view.update(postList: postList)
+            self.view.update()
         }
     }
     
@@ -60,7 +58,6 @@ final class PostListViewPresenter {
 
 //MARK: - PostsViewPresenterProtocol
 extension PostListViewPresenter: PostListPresenter {
-
     func changeTab(type: TabType) {
         switch type {
         case .list:
@@ -76,15 +73,13 @@ extension PostListViewPresenter: PostListPresenter {
         return postList
     }
     
-    func fetchPostList(completion: Block?) {
+    func fetchPostList() {
         apiManager.request { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
                 self.postList = data.posts
-                completion?(.success(()))
             case .failure(let error):
-                completion?(.failure(error))
                 self.view.showAlert(error: error.rawValue)
             }
         }

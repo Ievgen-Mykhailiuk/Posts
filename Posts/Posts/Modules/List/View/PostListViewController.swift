@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PostListView: AnyObject {
-    func update(postList: [PostListModel])
+    func update()
     func showAlert(error: String)
     func showList()
     func showGrid()
@@ -19,11 +19,17 @@ final class PostListViewController: UIViewController {
     
     //MARK: - Properties
     var presenter: PostListPresenter!
-    private var listView: ListView?
-    private var gridView: GridView?
-    private var galleryView: GalleryView?
+    private var activeTab: TabType = .list
+    private lazy var tableView: TableView = {
+        let tableView = TableView()
+        return tableView
+    }()
+    private lazy var collectionView: CollectionView = {
+        let collectionView = CollectionView()
+        return collectionView
+    }()
     private lazy var tabView: TabView = {
-        let tabsView = TabView(dataSource: ["List", "Grid", "Gallery"],
+        let tabsView = TabView(dataSource: TabType.allCases.map { $0.rawValue },
                                selectedStateColor: .blue,
                                unselectedStateColor: .black)
         return tabsView
@@ -45,17 +51,12 @@ final class PostListViewController: UIViewController {
     
     //MARK: - Private methods
     private func initialSetup() {
-        presenter.fetchPostList { result in
-            switch result {
-            case .success(()):
-                self.setupTabsView()
-                self.setupListView()
-                self.setupSortMenu()
-                self.setupNavigationBar()
-            case .failure(let error):
-                self.showAlert(error: error.localizedDescription)
-            }
-        }
+        self.setupTabsView()
+        self.setupCollectionView()
+        self.setupTableView()
+        self.setupSortMenu()
+        self.setupNavigationBar()
+        presenter.fetchPostList()
     }
     
     private func setupTabsView() {
@@ -70,49 +71,28 @@ final class PostListViewController: UIViewController {
         ])
     }
     
-    private func setupListView() {
-        listView = ListView(dataSource: presenter.getDataSource())
-        if let contentView = listView {
-            contentView.delegate = self
-            view.addSubview(contentView)
-            contentView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
-                contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-        }
+    private func setupTableView() {
+        tableView.delegate = self
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
-    private func setupGridView() {
-        gridView = GridView(dataSource: presenter.getDataSource())
-        if let contentView = gridView {
-            contentView.delegate = self
-            view.addSubview(contentView)
-            contentView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
-                contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-        }
-    }
-    
-    private func setupGalleryView() {
-        galleryView = GalleryView(dataSource: presenter.getDataSource())
-        if let contentView = galleryView {
-            contentView.delegate = self
-            view.addSubview(contentView)
-            contentView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                contentView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
-                contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
-                contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-        }
+    private func setupCollectionView() {
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     private func setupSortMenu() {
@@ -139,36 +119,39 @@ final class PostListViewController: UIViewController {
 //MARK: - PostListViewProtocol
 extension PostListViewController: PostListView {
     func showList() {
-        gridView?.removeFromSuperview()
-        gridView = nil
-        galleryView?.removeFromSuperview()
-        galleryView = nil
-        setupListView()
+        collectionView.dataSource = []
+        collectionView.isHidden = true
+        tableView.isHidden = false
+        tableView.dataSource = presenter.getDataSource()
+        activeTab = .list
     }
     
     func showGrid() {
-        listView?.removeFromSuperview()
-        listView = nil
-        galleryView?.removeFromSuperview()
-        galleryView = nil
-        setupGridView()
+        tableView.dataSource = []
+        tableView.isHidden = true
+        collectionView.isHidden = false
+        collectionView.contentView.setCollectionViewLayout(collectionView.gridLayout, animated: false)
+        collectionView.dataSource = presenter.getDataSource()
+        activeTab = .grid
     }
     
     func showGallery() {
-        gridView?.removeFromSuperview()
-        gridView = nil
-        listView?.removeFromSuperview()
-        listView = nil
-        setupGalleryView()
+        tableView.dataSource = []
+        tableView.isHidden = true
+        collectionView.isHidden = false
+        collectionView.contentView.setCollectionViewLayout(collectionView.galleryLayout, animated: false)
+        collectionView.dataSource = presenter.getDataSource()
+        activeTab = .gallery
     }
     
-    func update(postList: [PostListModel]) {
-        if listView != nil {
-            listView?.dataSource = postList
-        } else if gridView != nil {
-            gridView?.dataSource = postList
-        } else {
-            galleryView?.dataSource = postList
+    func update() {
+        switch activeTab {
+        case .list:
+            tableView.dataSource = presenter.getDataSource()
+        case .grid:
+            collectionView.dataSource = presenter.getDataSource()
+        case .gallery:
+            collectionView.dataSource = presenter.getDataSource()
         }
     }
     
@@ -177,7 +160,7 @@ extension PostListViewController: PostListView {
     }
 }
 
-//MARK: - TabsViewDelegate
+//MARK: - TabViewDelegate
 extension PostListViewController: TabViewDelegate {
     func tabSelected(type: TabType) {
         presenter.changeTab(type: type)
