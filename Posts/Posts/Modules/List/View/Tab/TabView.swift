@@ -31,14 +31,27 @@ final class TabView: UIView {
             collectionView.reloadData()
         }
     }
+    
+    private lazy var layout: UICollectionViewCompositionalLayout = {
+        let itemSize = NSCollectionLayoutSize(widthDimension: NSCollectionLayoutDimension.estimated(20),
+                                              heightDimension: NSCollectionLayoutDimension.fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+                                               heightDimension: NSCollectionLayoutDimension.fractionalHeight(1))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitem: item,
+                                                       count: dataSource.count)
+        let section = NSCollectionLayoutSection(group: group)
+        return UICollectionViewCompositionalLayout(section: section)
+    }()
+    
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    
     private lazy var indicatorView: UIView = {
         let view = UIView(frame: CGRect(x: .zero,
                                         y: .zero,
@@ -48,7 +61,7 @@ final class TabView: UIView {
         view.backgroundColor = selectedStateColor
         return view
     }()
-    
+
     //MARK: - Life Cycle
     init(dataSource: [String],
          selectedStateColor: UIColor,
@@ -153,20 +166,3 @@ extension TabView: UICollectionViewDelegate {
         delegate?.tabSelected(type: type)
     }
 }
-
-//MARK: - UICollectionViewDelegateFlowLayout
-extension TabView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let tabTitle = dataSource[indexPath.item]
-        return calculateTabSize(with: tabTitle)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return spacingValue
-    }
-}
-
