@@ -8,18 +8,40 @@
 import UIKit
 
 protocol PostListView: AnyObject {
-    func updatePostList()
+    func update()
     func showAlert(error: String)
+    func showList()
+    func showGrid()
+    func showGallery()
 }
 
 final class PostListViewController: UIViewController {
     
-    //MARK: - Outlets
-    @IBOutlet private weak var sortButton: UIBarButtonItem!
-    @IBOutlet private weak var tableView: UITableView!
-    
     //MARK: - Properties
     var presenter: PostListPresenter!
+    private var activeTab: TabType = .list
+    private lazy var tableView: TableView = {
+        let tableView = TableView()
+        return tableView
+    }()
+    private lazy var collectionView: CollectionView = {
+        let collectionView = CollectionView()
+        return collectionView
+    }()
+    private lazy var tabView: TabView = {
+        let tabsView = TabView(dataSource: TabType.allCases.map { $0.rawValue },
+                               selectedStateColor: .blue,
+                               unselectedStateColor: .black)
+        return tabsView
+    }()
+    private lazy var sortButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "menubar.arrow.down.rectangle"),
+                                     style: .plain,
+                                     target: self,
+                                     action: nil)
+        button.tintColor = .black
+        return button
+    }()
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -29,15 +51,48 @@ final class PostListViewController: UIViewController {
     
     //MARK: - Private methods
     private func initialSetup() {
-        setupTableView()
-        setupSortMenu()
+        self.setupTabsView()
+        self.setupCollectionView()
+        self.setupTableView()
+        self.setupSortMenu()
+        self.setupNavigationBar()
         presenter.fetchPostList()
     }
     
+    private func setupTabsView() {
+        tabView.delegate = self
+        view.addSubview(tabView)
+        tabView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tabView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tabView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tabView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+    }
+    
     private func setupTableView() {
-        tableView.dataSource = self
         tableView.delegate = self
-        PostListCell.registerNib(in: self.tableView)
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func setupCollectionView() {
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: tabView.bottomAnchor, constant: 3),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     private func setupSortMenu() {
@@ -54,50 +109,73 @@ final class PostListViewController: UIViewController {
         ])
         sortButton.menu = sortMenu
     }
+    
+    private func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = sortButton
+        title = "PostList"
+    }
 }
 
 //MARK: - PostListViewProtocol
 extension PostListViewController: PostListView {
-    func updatePostList() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+    func showList() {
+        collectionView.dataSource = []
+        collectionView.isHidden = true
+        tableView.isHidden = false
+        tableView.dataSource = presenter.getDataSource()
+        activeTab = .list
+    }
+    
+    func showGrid() {
+        tableView.dataSource = []
+        tableView.isHidden = true
+        collectionView.isHidden = false
+        collectionView.contentView.setCollectionViewLayout(collectionView.gridLayout, animated: false)
+        collectionView.dataSource = presenter.getDataSource()
+        activeTab = .grid
+    }
+    
+    func showGallery() {
+        tableView.dataSource = []
+        tableView.isHidden = true
+        collectionView.isHidden = false
+        collectionView.contentView.setCollectionViewLayout(collectionView.galleryLayout, animated: false)
+        collectionView.dataSource = presenter.getDataSource()
+        activeTab = .gallery
+    }
+    
+    func update() {
+        switch activeTab {
+        case .list:
+            tableView.dataSource = presenter.getDataSource()
+        case .grid, .gallery:
+            collectionView.dataSource = presenter.getDataSource()
         }
     }
     
     func showAlert(error: String) {
-        DispatchQueue.main.async {
-            self.showAlert(title: "Error", message: error)
-        }
+        self.showAlert(title: "Error", message: error)
     }
 }
 
-//MARK: - UITableViewDataSource
-extension PostListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.getPostListCount()
+//MARK: - TabViewDelegate
+extension PostListViewController: TabViewDelegate {
+    func tabSelected(type: TabType) {
+        presenter.changeTab(type: type)
+    }
+}
+
+//MARK: - ContentViewDelegate
+extension PostListViewController: ContentViewDelegate {
+    func readMoreButtonTapped(on post: Int) {
+        presenter.setState(for: post)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PostListCell = .cell(in: self.tableView, at: indexPath)
-        let post = presenter.getPost(at: indexPath.row)
-        let state = presenter.isExpanded(post.id)
-        cell.configure(post: post, isExpanded: state)
-        cell.delegate = self
-        return cell
+    func cellSelected(at index: Int) {
+        presenter.showDetails(for: index)
     }
-}
-
-//MARK: - UITableViewDelegate
-extension PostListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showDetails(at: indexPath.row)
-        self.tableView.deselectRow(at: indexPath, animated: false)
-    }
-}
-
-//MARK: - CellStateDelegate
-extension PostListViewController: CellStateDelegate {
-    func readMoreButtonTapped(_ post: Int) {
-        presenter.setState(for: post)
+    
+    func getPostState(for post: Int) -> Bool {
+        return presenter.isExpanded(post)
     }
 }

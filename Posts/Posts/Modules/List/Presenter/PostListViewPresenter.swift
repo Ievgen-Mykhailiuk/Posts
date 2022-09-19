@@ -10,17 +10,23 @@ import Foundation
 protocol PostListPresenter: AnyObject {
     func fetchPostList()
     func sort(_ method: SortingMethod)
-    func getPost(at index: Int) -> PostListModel
-    func getPostListCount() -> Int
     func isExpanded(_ postId: Int) -> Bool
     func setState(for post: Int)
-    func showDetails(at index: Int)
+    func showDetails(for index: Int)
+    func getDataSource() -> [PostListModel]
+    func changeTab(type: TabType)
 }
 
 enum SortingMethod {
     case byDefault
     case byLikes
     case byDate
+}
+
+enum TabType: String, CaseIterable {
+    case list = "List"
+    case grid = "Grid"
+    case gallery = "Gallery"
 }
 
 final class PostListViewPresenter {
@@ -31,12 +37,12 @@ final class PostListViewPresenter {
     private let router: DefaultPostListRouter
     private var postList = [PostListModel]() {
         didSet {
-            self.view.updatePostList()
+            self.view.update()
         }
     }
     private var expandedPosts = [Int]() {
         didSet {
-            self.view.updatePostList()
+            self.view.update()
         }
     }
     
@@ -52,6 +58,21 @@ final class PostListViewPresenter {
 
 //MARK: - PostsViewPresenterProtocol
 extension PostListViewPresenter: PostListPresenter {
+    func changeTab(type: TabType) {
+        switch type {
+        case .list:
+            self.view.showList()
+        case .grid:
+            self.view.showGrid()
+        case .gallery:
+            self.view.showGallery()
+        }
+    }
+    
+    func getDataSource() -> [PostListModel] {
+        return postList
+    }
+    
     func fetchPostList() {
         apiManager.request { [weak self] result in
             guard let self = self else { return }
@@ -67,20 +88,12 @@ extension PostListViewPresenter: PostListPresenter {
     func sort(_ method: SortingMethod) {
         switch method {
         case .byDefault:
-            fetchPostList()
+            postList = postList.sorted(by: { $0.id < $1.id })
         case .byLikes:
             postList =  postList.sorted(by: { $0.likesCount > $1.likesCount })
         case .byDate:
             postList = postList.sorted(by: { $0.timeShamp > $1.timeShamp })
         }
-    }
-    
-    func getPost(at index: Int) -> PostListModel {
-        return postList[index]
-    }
-    
-    func getPostListCount() -> Int {
-        return postList.count
     }
     
     func isExpanded(_ postId: Int) -> Bool {
@@ -95,14 +108,17 @@ extension PostListViewPresenter: PostListPresenter {
     
     func setState(for post: Int) {
         if expandedPosts.contains(post) {
-            guard let index = expandedPosts.firstIndex(where: { $0 == post }) else { return }
-            expandedPosts.remove(at: index)
+            var postIndex: Int
+            if let index = expandedPosts.firstIndex(where: { $0 == post }) {
+                postIndex = Int(index)
+                expandedPosts.remove(at: postIndex)
+            }
         } else {
             expandedPosts.append(post)
         }
     }
     
-    func showDetails(at index: Int) {
+    func showDetails(for index: Int) {
         let postId = postList[index].id
         router.showDetails(for: postId)
     }
