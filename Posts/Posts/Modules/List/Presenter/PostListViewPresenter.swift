@@ -64,9 +64,13 @@ final class PostListViewPresenter {
     }
     
     private func filter(with text: String) {
-        searchIsActive = true
-        let filtred = postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
-        self.filtredPostList = filtred
+        if text.isEmpty {
+            stopSearch()
+        } else {
+            searchIsActive = true
+            let filtred = postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
+            self.filtredPostList = filtred
+        }
     }
 }
 
@@ -142,11 +146,7 @@ extension PostListViewPresenter: PostListPresenter {
     }
     
     func search(with text: String) {
-        if text != .empty {
-            filter(with: text)
-        } else {
-            stopSearch()
-        }
+        filter(with: text)
     }
     
     func stopSearch() {
