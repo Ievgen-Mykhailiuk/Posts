@@ -148,9 +148,7 @@ extension PostListViewController: PostListView {
         switch activeTab {
         case .list:
             tableView.dataSource = presenter.getDataSource()
-        case .grid:
-            collectionView.dataSource = presenter.getDataSource()
-        case .gallery:
+        case .grid, .gallery:
             collectionView.dataSource = presenter.getDataSource()
         }
     }
@@ -167,7 +165,7 @@ extension PostListViewController: TabViewDelegate {
     }
 }
 
-//MARK: - ListViewDelegate
+//MARK: - ContentViewDelegate
 extension PostListViewController: ContentViewDelegate {
     func readMoreButtonTapped(on post: Int) {
         presenter.setState(for: post)
