@@ -1,5 +1,5 @@
 //
-//  TabsView.swift
+//  TabView.swift
 //  Posts
 //
 //  Created by Евгений  on 13/09/2022.
@@ -18,13 +18,8 @@ final class TabView: UIView {
     private let dataSource: [String]
     private let selectedStateColor: UIColor
     private let unselectedStateColor: UIColor
-    private let spacingValue: CGFloat = 20
-    private let font: UIFont = .systemFont(ofSize: 17)
-    private let collectionViewPadding: CGFloat = 10
-    private let cellHeight: CGFloat = 50
-    private let cellInset: CGFloat = 10
+    private let padding: CGFloat = 5
     private let indicatorHeight: CGFloat = 5
-    private let maxTabsCountForEqualWidth = 3
     private let animationDuration = 0.2
     private var selectedTabIndex: Int = .zero {
         didSet {
@@ -97,8 +92,8 @@ final class TabView: UIView {
     private func setupCollectionViewConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: collectionViewPadding),
-            collectionView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -collectionViewPadding),
+            collectionView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: padding),
+            collectionView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -padding),
             collectionView.topAnchor.constraint(equalTo: self.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
@@ -114,22 +109,6 @@ final class TabView: UIView {
     
     private func setSelectionIndicatorPosition() {
         indicatorView.frame.origin.y = self.frame.height - indicatorHeight
-    }
-    
-    private func calculateTabSize(with tabTitle: String) -> CGSize {
-        var cellSize: CGSize = .zero
-        if dataSource.count <= maxTabsCountForEqualWidth {
-            collectionView.isScrollEnabled = false
-            let widthToCalculate = self.frame.width - collectionViewPadding * 2
-            let spacingCount = dataSource.count - 1
-            let totalSpacingValue = CGFloat(spacingCount) * spacingValue
-            let cellWidth = (widthToCalculate - totalSpacingValue)/CGFloat(dataSource.count)
-            cellSize = CGSize(width: cellWidth, height: cellHeight)
-        } else {
-            let cellWidth = tabTitle.textWidth(with: font) + cellInset
-            cellSize = CGSize(width: cellWidth, height: cellHeight)
-        }
-        return cellSize
     }
     
     private func selectTab(at index: Int) {
