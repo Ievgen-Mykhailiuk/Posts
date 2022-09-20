@@ -34,6 +34,10 @@ final class PostListViewController: UIViewController {
                                unselectedStateColor: .black)
         return tabsView
     }()
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        return searchBar
+    }()
     private lazy var sortButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "menubar.arrow.down.rectangle"),
                                      style: .plain,
@@ -51,11 +55,12 @@ final class PostListViewController: UIViewController {
     
     //MARK: - Private methods
     private func initialSetup() {
-        self.setupTabsView()
-        self.setupCollectionView()
-        self.setupTableView()
-        self.setupSortMenu()
-        self.setupNavigationBar()
+        setupSearchBar()
+        setupTabsView()
+        setupCollectionView()
+        setupTableView()
+        setupSortMenu()
+        setupNavigationBar()
         presenter.fetchPostList()
     }
     
@@ -64,7 +69,7 @@ final class PostListViewController: UIViewController {
         view.addSubview(tabView)
         tabView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tabView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 3),
             tabView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tabView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tabView.heightAnchor.constraint(equalToConstant: 60)
@@ -113,6 +118,21 @@ final class PostListViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.rightBarButtonItem = sortButton
         title = "PostList"
+    }
+    
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        searchBar.placeholder = "Search..."
+        searchBar.backgroundImage = UIImage()
+        searchBar.showsCancelButton = true
+        view.addSubview(searchBar)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leftAnchor.constraint(equalTo: view.leftAnchor),
+            searchBar.rightAnchor.constraint(equalTo: view.rightAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 30)
+        ])
     }
 }
 
@@ -177,5 +197,18 @@ extension PostListViewController: ContentViewDelegate {
     
     func getPostState(for post: Int) -> Bool {
         return presenter.isExpanded(post)
+    }
+}
+
+//MARK: - UISearchBarDelegate
+extension PostListViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = .empty
+        searchBar.endEditing(true)
+        presenter.stopSearch()
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.search(with: searchText)
     }
 }

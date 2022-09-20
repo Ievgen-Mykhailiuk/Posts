@@ -15,6 +15,8 @@ protocol PostListPresenter: AnyObject {
     func showDetails(for index: Int)
     func getDataSource() -> [PostListModel]
     func changeTab(type: TabType)
+    func search(with text: String)
+    func stopSearch()
 }
 
 enum SortingMethod {
@@ -45,6 +47,12 @@ final class PostListViewPresenter {
             self.view.update()
         }
     }
+    private var filtredPostList = [PostListModel]() {
+        didSet {
+            self.view.update()
+        }
+    }
+    private var searchIsActive: Bool = false
     
     //MARK: - Life Cycle
     init(view: PostListView,
@@ -53,6 +61,16 @@ final class PostListViewPresenter {
         self.view = view
         self.apiManager = apiManager
         self.router = router
+    }
+    
+    private func filter(with text: String) {
+        if text.isEmpty {
+            stopSearch()
+        } else {
+            searchIsActive = true
+            let filtred = postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
+            self.filtredPostList = filtred
+        }
     }
 }
 
@@ -70,7 +88,11 @@ extension PostListViewPresenter: PostListPresenter {
     }
     
     func getDataSource() -> [PostListModel] {
-        return postList
+        if searchIsActive {
+            return filtredPostList
+        } else {
+            return postList
+        }
     }
     
     func fetchPostList() {
@@ -121,5 +143,14 @@ extension PostListViewPresenter: PostListPresenter {
     func showDetails(for index: Int) {
         let postId = postList[index].id
         router.showDetails(for: postId)
+    }
+    
+    func search(with text: String) {
+        filter(with: text)
+    }
+    
+    func stopSearch() {
+        searchIsActive = false
+        filtredPostList = []
     }
 }

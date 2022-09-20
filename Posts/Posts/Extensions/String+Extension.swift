@@ -8,6 +8,8 @@
 import UIKit
 
 extension String {
+    static let empty = ""
+    
     func rectHeight(with width: CGFloat,
                     with font: UIFont = UIFont.systemFont(ofSize: 16)) -> CGFloat {
         let rect = self.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude),
