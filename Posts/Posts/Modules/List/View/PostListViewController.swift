@@ -207,7 +207,7 @@ extension PostListViewController: UISearchBarDelegate {
         searchBar.endEditing(true)
         presenter.stopSearch()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter.search(with: searchText)
     }

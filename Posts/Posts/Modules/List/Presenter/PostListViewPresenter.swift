@@ -37,6 +37,7 @@ final class PostListViewPresenter {
     private weak var view: PostListView!
     private let apiManager: PostListAPIService
     private let router: DefaultPostListRouter
+    private var timer: Timer?
     private var postList = [PostListModel]() {
         didSet {
             self.view.update()
@@ -63,13 +64,18 @@ final class PostListViewPresenter {
         self.router = router
     }
     
+    //MARK: - Private methods
     private func filter(with text: String) {
-        if text.isEmpty {
-            stopSearch()
-        } else {
+        if text.count >= 2 {
+            timer?.invalidate()
             searchIsActive = true
-            let filtred = postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
-            self.filtredPostList = filtred
+            timer = .scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                let filtred = self.postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
+                self.filtredPostList = filtred
+            }
+        } else {
+            timer?.invalidate()
+            stopSearch()
         }
     }
 }
