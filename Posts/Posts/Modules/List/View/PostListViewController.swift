@@ -209,6 +209,6 @@ extension PostListViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchText.count >= 2 ? presenter.networkSearch(with: searchText) : presenter.stopSearch()
+        presenter.search(with: searchText)
     }
 }

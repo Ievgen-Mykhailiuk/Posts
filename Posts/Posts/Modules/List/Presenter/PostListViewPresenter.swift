@@ -15,8 +15,7 @@ protocol PostListPresenter: AnyObject {
     func showDetails(for index: Int)
     func getDataSource() -> [PostListModel]
     func changeTab(type: TabType)
-    func localSearch(with text: String)
-    func networkSearch(with text: String)
+    func search(with text: String)
     func stopSearch()
 }
 
@@ -66,20 +65,17 @@ final class PostListViewPresenter {
     }
     
     //MARK: - Private methods
-    private func localFilter(with text: String) {
-        if text.isEmpty {
-            stopSearch()
-        } else {
+    private func filter(with text: String) {
+        if text.count >= 2 {
+            timer?.invalidate()
             searchIsActive = true
             let filtred = postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
-            self.filtredPostList = filtred
+            timer = .scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                self.filtredPostList = filtred
+            }
+        } else {
+            stopSearch()
         }
-    }
-    
-    private func networkFilter(with text: String, data: [PostListModel]) {
-            searchIsActive = true
-            let filtred = data.filter { $0.previewText.lowercased().contains(text.lowercased()) }
-            self.filtredPostList = filtred
     }
 }
 
@@ -154,27 +150,11 @@ extension PostListViewPresenter: PostListPresenter {
         router.showDetails(for: postId)
     }
     
-    func localSearch(with text: String) {
-        localFilter(with: text)
-    }
-    
-    func networkSearch(with text: String) {
-        apiManager.request { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                self.timer?.invalidate()
-                self.timer = .scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-                    self.networkFilter(with: text, data: data.posts)
-                }
-            case .failure(let error):
-                self.view.showAlert(error: error.rawValue)
-            }
-        }
+    func search(with text: String) {
+        filter(with: text)
     }
     
     func stopSearch() {
-        timer?.invalidate()
         searchIsActive = false
         filtredPostList = []
     }
