@@ -69,11 +69,12 @@ final class PostListViewPresenter {
         if text.count >= 2 {
             timer?.invalidate()
             searchIsActive = true
-            let filtred = postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
             timer = .scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                let filtred = self.postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
                 self.filtredPostList = filtred
             }
         } else {
+            timer?.invalidate()
             stopSearch()
         }
     }
