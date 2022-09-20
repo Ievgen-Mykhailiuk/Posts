@@ -15,7 +15,8 @@ protocol PostListPresenter: AnyObject {
     func showDetails(for index: Int)
     func getDataSource() -> [PostListModel]
     func changeTab(type: TabType)
-    func search(with text: String)
+    func localSearch(with text: String)
+    func networkSearch(with text: String)
     func stopSearch()
 }
 
@@ -37,6 +38,7 @@ final class PostListViewPresenter {
     private weak var view: PostListView!
     private let apiManager: PostListAPIService
     private let router: DefaultPostListRouter
+    private var timer: Timer?
     private var postList = [PostListModel]() {
         didSet {
             self.view.update()
@@ -63,7 +65,8 @@ final class PostListViewPresenter {
         self.router = router
     }
     
-    private func filter(with text: String) {
+    //MARK: - Private methods
+    private func localFilter(with text: String) {
         if text.isEmpty {
             stopSearch()
         } else {
@@ -71,6 +74,12 @@ final class PostListViewPresenter {
             let filtred = postList.filter { $0.previewText.lowercased().contains(text.lowercased()) }
             self.filtredPostList = filtred
         }
+    }
+    
+    private func networkFilter(with text: String, data: [PostListModel]) {
+            searchIsActive = true
+            let filtred = data.filter { $0.previewText.lowercased().contains(text.lowercased()) }
+            self.filtredPostList = filtred
     }
 }
 
@@ -145,11 +154,27 @@ extension PostListViewPresenter: PostListPresenter {
         router.showDetails(for: postId)
     }
     
-    func search(with text: String) {
-        filter(with: text)
+    func localSearch(with text: String) {
+        localFilter(with: text)
+    }
+    
+    func networkSearch(with text: String) {
+        apiManager.request { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                self.timer?.invalidate()
+                self.timer = .scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                    self.networkFilter(with: text, data: data.posts)
+                }
+            case .failure(let error):
+                self.view.showAlert(error: error.rawValue)
+            }
+        }
     }
     
     func stopSearch() {
+        timer?.invalidate()
         searchIsActive = false
         filtredPostList = []
     }
